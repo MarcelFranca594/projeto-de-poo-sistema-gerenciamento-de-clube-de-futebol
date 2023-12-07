@@ -135,6 +135,37 @@ function adicionarJogadorAoTime() {
   }
 }
 
+function visualizarInfoJogador() {
+  const nomeJogador = prompt(
+    "Digite o nome do jogador para visualizar suas informações:"
+  );
+
+  // Encontrar o jogador na lista de jogadores
+  const jogadorEncontrado = listaDeJogadores.find(
+    (jogador) => jogador.nome === nomeJogador
+  );
+
+  if (jogadorEncontrado) {
+    console.log("Informações do jogador:");
+    console.log(jogadorEncontrado);
+  } else {
+    console.log("Jogador não encontrado.");
+  }
+}
+
+function visualizarInfoTime() {
+  const nomeTime = prompt("Digite o nome do time que deseja visualizar:");
+
+  // Encontrar o time na lista de times
+  const timeEncontrado = times.find((time) => time.nomeTime === nomeTime);
+
+  if (timeEncontrado) {
+    timeEncontrado.displayInfo();
+  } else {
+    console.log("Time não encontrado.");
+  }
+}
+
 // Sistema de Menu
 const mostrarMenu = () => {
   console.log(" ===== Menu ===== ");
@@ -165,9 +196,11 @@ const escolherOpcao = () => {
       break;
     case "4":
       console.log("Opção escolhida: Visualizar Informações do Jogador");
+      visualizarInfoJogador();
       break;
     case "5":
       console.log("Opção escolhida: Visualizar Informações do Time");
+      visualizarInfoTime();
       break;
     case "6":
       console.log("Opção escolhida: Sair");
