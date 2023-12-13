@@ -62,15 +62,22 @@ class Team extends SportsEntity {
     this.nomeTreinador = nomeTreinador;
     this.listaJogadores = [];
   }
+
   displayInfo() {
     console.log(
       `Nome do time: ${this.nomeTime}, nome do treinador: ${this.nomeTreinador}`
     );
-    console.log("Lista de Jogadores:");
-    this.listaJogadores.forEach((jogador) => {
-      console.log(jogador.nome);
-    });
+    // Verifica se a lista de jogadores está vazia
+    if (this.listaJogadores.length === 0) {
+      console.log("A lista de jogadores está vazia.");
+    } else {
+      console.log("Lista de Jogadores:");
+      this.listaJogadores.forEach((jogador) => {
+        console.log(jogador.nome);
+      });
+    }
   }
+
   adicionarJogadorTime(novoJogadorTime) {
     this.listaJogadores.push(novoJogadorTime);
   }
