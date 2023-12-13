@@ -66,6 +66,10 @@ class Team extends SportsEntity {
     console.log(
       `Nome do time: ${this.nomeTime}, nome do treinador: ${this.nomeTreinador}`
     );
+    console.log("Lista de Jogadores:");
+    this.listaJogadores.forEach((jogador) => {
+      console.log(jogador.nome);
+    });
   }
   adicionarJogadorTime(novoJogadorTime) {
     this.listaJogadores.push(novoJogadorTime);
@@ -76,6 +80,8 @@ class Team extends SportsEntity {
 const listaDeJogadores = [];
 const times = [];
 
+const prompt = require("prompt-sync")();
+
 // Função para criar um novo jogador solicitando informações ao usuário
 function criarJogador() {
   const nome = prompt("Nome do jogador: ");
@@ -85,8 +91,14 @@ function criarJogador() {
     prompt("Nível de habilidade do jogador: "),
     10
   );
-
-  const novoJogador = new Player(nome, "", idade, posicao, nivelHabilidade);
+  const descricao = "Jogado de Futebol";
+  const novoJogador = new Player(
+    nome,
+    descricao,
+    idade,
+    posicao,
+    nivelHabilidade
+  );
   listaDeJogadores.push(novoJogador);
   console.log("Novo jogador criado:");
   console.log(novoJogador);
@@ -96,7 +108,7 @@ function criarTime() {
   const nomeTime = prompt("Nome do time: ");
   const nomeTreinador = prompt("Nome do Treinador: ");
   const novoTime = new Team(nomeTime, nomeTreinador);
-  times.push(nomeTime);
+  times.push(novoTime);
   console.log("Time e Treinador criado");
   console.log(novoTime);
 }
@@ -118,7 +130,7 @@ function adicionarJogadorAoTime() {
 
     // Encontrar o time na lista de times
     const timeEncontrado = times.find(
-      (time) => time._nomeTime === nomeTimeParaAdicionar
+      (time) => time.nomeTime === nomeTimeParaAdicionar
     );
 
     if (timeEncontrado) {
@@ -170,7 +182,7 @@ function visualizarInfoTime() {
 const mostrarMenu = () => {
   console.log(" ===== Menu ===== ");
   console.log("1 - Criar um jogador");
-  console.log("2-  Criar um time");
+  console.log("2 - Criar um Time");
   console.log("3 - Adicionar Jogador a um Time");
   console.log("4 - Visualizar Informações do Jogador");
   console.log("5 - Visualizar Informações do Time");
@@ -178,36 +190,39 @@ const mostrarMenu = () => {
   console.log("==================");
 };
 
-// Sistema de Menu
 const escolherOpcao = () => {
-  const opcao = prompt("Escolher uma opção entre (1-6):");
-  switch (opcao) {
-    case "1":
-      console.log("Opção escolhida: Criar um jogador ");
-      criarJogador();
-      break;
-    case "2":
-      console.log("Opção escolhida: Criar um Time");
-      criarTime();
-      break;
-    case "3":
-      console.log("Opção escolhida: Adicionar Jogador a um time");
-      adicionarJogadorAoTime();
-      break;
-    case "4":
-      console.log("Opção escolhida: Visualizar Informações do Jogador");
-      visualizarInfoJogador();
-      break;
-    case "5":
-      console.log("Opção escolhida: Visualizar Informações do Time");
-      visualizarInfoTime();
-      break;
-    case "6":
-      console.log("Opção escolhida: Sair");
-      break;
-    default:
-      console.log("Opção inválida. Por favor, escolha uma opção de 1 a 6.");
-      break;
+  while (true) {
+    mostrarMenu();
+    const opcao = prompt("Escolher uma opção entre (1-6): ");
+
+    switch (opcao) {
+      case "1":
+        console.log("Opção escolhida: Criar um jogador ");
+        criarJogador();
+        break;
+      case "2":
+        console.log("Opção escolhida: Criar um Time");
+        criarTime();
+        break;
+      case "3":
+        console.log("Opção escolhida: Adicionar Jogador a um time");
+        adicionarJogadorAoTime();
+        break;
+      case "4":
+        console.log("Opção escolhida: Visualizar Informações do Jogador");
+        visualizarInfoJogador();
+        break;
+      case "5":
+        console.log("Opção escolhida: Visualizar Informações do Time");
+        visualizarInfoTime();
+        break;
+      case "6":
+        console.log("Opção escolhida: Sair");
+        return; // Encerra a função e sai do loop
+      default:
+        console.log("Opção inválida. Por favor, escolha uma opção de 1 a 6.");
+        break;
+    }
   }
 };
 
